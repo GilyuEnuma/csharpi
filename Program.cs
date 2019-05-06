@@ -68,9 +68,9 @@ namespace csharpi
             if (message.Author.Id == _client.CurrentUser.Id)
                 return;
 
-            if (message.Content == ".hello")
+            if (message.Content == ".ping")
             {
-                await message.Channel.SendMessageAsync("world!");
+                await message.Channel.SendMessageAsync("Pong!");
             }  
         }
     }
