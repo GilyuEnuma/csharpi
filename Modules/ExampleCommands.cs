@@ -24,8 +24,24 @@ namespace csharpi.Modules
             var user = Context.User;
             
             // build out the reply
-            sb.AppendLine($"You are -> [{user.Username}]");
-            sb.AppendLine("I must now say, World!");
+            sb.AppendLine($"Hello [{user.Username}], nice to meet you.");
+            sb.AppendLine(" /bow");
+
+            // send simple string reply
+            await ReplyAsync(sb.ToString());
+        }
+
+        [Command("ping")]
+        public async Task PingCommand()
+        {
+            // initialize empty string builder for reply
+            var sb = new StringBuilder();
+
+            // get user info from the Context
+            var user = Context.User;
+            
+            // build out the reply
+            sb.AppendLine("... pong!");
 
             // send simple string reply
             await ReplyAsync(sb.ToString());
@@ -52,11 +68,11 @@ namespace csharpi.Modules
 
             // time to add some options to the embed (like color and title)
             embed.WithColor(new Color(0, 255,0));
-            embed.Title = "Welcome to the 8-ball!";
+            embed.Title = "Hom-chan casts Divination!";
             
             // we can get lots of information from the Context that is passed into the commands
             // here I'm setting up the preface with the user's name and a comma
-            sb.AppendLine($"{Context.User.Username},");
+            sb.AppendLine($"{Context.User.Username} dared ask a question...");
             sb.AppendLine();
 
             // let's make sure the supplied question isn't null 
@@ -69,32 +85,32 @@ namespace csharpi.Modules
             {
                 // if we have a question, let's give an answer!
                 // get a random number to index our list with (arrays start at zero so we subtract 1 from the count)
-                var answer = replies[new Random().Next(replies.Count - 1)];
+                var answer = replies[new Random().Next(replies.Count)];
                 
                 // build out our reply with the handy StringBuilder
                 sb.AppendLine($"You asked: [**{args}**]...");
                 sb.AppendLine();
-                sb.AppendLine($"...your answer is [**{answer}**]");
+                sb.AppendLine($"...and my answer shall be [**{answer}**]");
 
                 // bonus - let's switch out the reply and change the color based on it
                 switch (answer) 
                 {
-                    case "yes":
+                    case "I mean, sure":
                     {
                         embed.WithColor(new Color(0, 255, 0));
                         break;
                     }
-                    case "no":
+                    case "Ha ha ha, no.":
                     {
                         embed.WithColor(new Color(255, 0, 0));
                         break;
                     }
-                    case "maybe":
+                    case "Ehhhh, who knows.":
                     {
                         embed.WithColor(new Color(255,255,0));
                         break;
                     }
-                    case "hazzzzy....":
+                    case "......... :-D":
                     {
                         embed.WithColor(new Color(255,0,255));
                         break;
